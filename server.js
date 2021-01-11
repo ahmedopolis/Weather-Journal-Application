@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 /**
  *  Api key is accessed via .env file and this key is accessed
  * in server.js to avoid exposure via 'devTools'.
- * */
+ */
 const OpenWeatherMapApiKey = process.env.OpenWeatherMapApiKey;
 
 // Setup empty JS object to act as endpoint for all routes
