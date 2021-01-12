@@ -8,6 +8,11 @@ The herein repository host the necessary assets for a Weather-Journal Applicatio
 
 1. [Design](#Design)
 2. [Instructions](#Instructions)
+   - [Download repository files](#Download repository files)
+   - [Setup environment](#Setup environment)
+   - [Add module and dependencies](#Add module and dependencies)
+   - [Add the OpenWeatherMap Api key](#Add the OpenWeatherMap Api key)
+   - [Run the server](#Run the server)
 3. [Examples](#Examples)
 4. [Tools](#Tools)
 5. [License](#License)
@@ -54,7 +59,7 @@ npm i node express cors
 
 Create an empty 'dotenv' file. Then, you need to fetch your api key. Go to <https://openweathermap.org/ap>, find the 'Current Weather Data' collection and subscribe to the free-tier. Then, retrieve the api key and place it in your 'dotenv' file.
 
-### Run project
+### Run the server
 
 Use the following command to launch the project:
 
