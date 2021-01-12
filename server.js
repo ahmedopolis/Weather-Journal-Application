@@ -32,17 +32,17 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static("website"));
 
-// Spin up the server
+// Setup server
 const port = 8000;
+
+// Spin up the server
 const server = app.listen(port, listening);
-function listening() {
-  console.log(server);
-  console.log(`running on localhost: ${port}`);
-}
 
 // Callback to debug
-function debugCodebase() {
-  debugger;
+function listening() {
+  console.log("Server is running.");
+  //console.log(server);
+  console.log(`running on localhost: ${port}`);
 }
 
 // Initialize all route with a callback function
@@ -56,8 +56,9 @@ function sendData(req, res) {
 // Post Route
 const data = [];
 
-app.post("/weather", addWeather);
+app.post("/weather", addWeatherData);
 
-function addWeather(req, res) {
+function addWeatherData(req, res) {
+  console.log(req.body);
   data.push(req.body);
 }
