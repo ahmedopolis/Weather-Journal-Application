@@ -55,6 +55,14 @@ Use the following line, to add Node.js, Express.js and cors.
 npm i node express cors
 ```
 
+### Add module to use fetch API in Node
+
+Use the following line, to add node-fetch.
+
+```bash
+npm i node-fetch --save
+```
+
 ### Add the OpenWeatherMap Api key
 
 Create an empty 'dotenv' file. Then, you need to fetch your api key. Go to <https://openweathermap.org/ap>, find the 'Current Weather Data' collection and subscribe to the free-tier. Then, retrieve the api key and place it in your 'dotenv' file.
