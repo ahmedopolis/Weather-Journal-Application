@@ -10,9 +10,11 @@ The herein repository host the necessary assets for a Weather-Journal Applicatio
 2. [Instructions](#Instructions)
    1. [Download repository files](#Download-repository-files)
    2. [Setup environment](#Setup-environment)
-   3. [Add module and dependencies](#Add-module-and-dependencies)
-   4. [Add the OpenWeatherMap Api key](#Add-the-OpenWeatherMap-Api-key)
-   5. [Run the server](#Run-the-server)
+   3. [Add module to setup server](#Add-module-to-setup-server)
+   4. [Add cors middleware](#Add-cors-middleware)
+   5. [Add module to use fetch API in Node](#Add-module-to-use-fetch-API-in-Node)
+   6. [Add the OpenWeatherMap Api key](#Add-the-OpenWeatherMap-Api-key)
+   7. [Run the server](#Run-the-server)
 3. [Examples](#Examples)
 4. [Tools](#Tools)
 5. [License](#License)
@@ -47,12 +49,20 @@ To initialize the project, use the following command:
 npm init
 ```
 
-### Add module and dependencies
+### Add module to setup server
 
-Use the following line, to add Node.js, Express.js and cors.
+Use the following line, to add Node.js, and Express.js.
 
 ```bash
-npm i node express cors
+npm i node express
+```
+
+### Add cors middleware
+
+Use the following line, to add cors.
+
+```bash
+npm i cors
 ```
 
 ### Add module to use fetch API in Node
