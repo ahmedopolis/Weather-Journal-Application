@@ -34,15 +34,15 @@ app.use(express.static("website"));
 
 // Setup server
 const port = 8000;
+const hostName = "localhost";
 
 // Spin up the server
 const server = app.listen(port, listening);
 
 // Callback to debug
 function listening() {
-  console.log("Server is running.");
-  //console.log(server);
-  console.log(`running on localhost: ${port}`);
+  console.log(server);
+  console.log(`Server is running on http://${hostName}: ${port}`);
 }
 
 // Initialize all route with a callback function
@@ -54,11 +54,16 @@ function sendData(req, res) {
 }
 
 // Post Route
-const data = [];
-
 app.post("/weather", addWeatherData);
 
 function addWeatherData(req, res) {
   console.log(req.body);
-  data.push(req.body);
+  const data = [];
+  let newProjectDataEntry = {
+    date: req.body.date,
+    temperature: req.body.temp,
+    contentFeelings: req.body.content,
+  };
+  projectData = newProjectDataEntry;
+  data.push(projectData);
 }
