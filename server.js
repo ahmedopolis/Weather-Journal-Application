@@ -49,12 +49,55 @@ function listening() {
   console.log(`Server is running on http://${hostName}: ${port}`);
 }
 
-const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
-const sample_zipcode = 94040;
-const APIString = `&appid=${OpenWeatherMapApiKey}`;
-const API_CALL = `${baseURL}${sample_zipcode},us${APIString}`;
+//Example zipcode : 90044
+function concatAPIString(zipCode) {
+  const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
+  const apiString = `&appid=${OpenWeatherMapApiKey}`;
+  const fullApiString = `${baseURL}${zipCode},us${apiString}`;
+  return fullApiString;
+}
 
-fetch(API_CALL)
+function postWeatherData() {
+  const apiCall = concatAPIString(90044);
+  fetchWeatherData(apiCall, {})
+    .then((data) => {
+      console.log("Success:", data);
+      const [{ description }] = data.weather;
+      // console.log(description);
+      const { temp, humidity } = data.main;
+      //Temperature is in Kelvin
+      // console.log(temp);
+      //console.log(humidity);
+      const name = data.name;
+      //console.log(name);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+async function fetchWeatherData(url = "", data = {}) {
+  const response = await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
+postWeatherData();
+
+/*
+const apiCall = concatAPIString(90044);
+
+fetch(apiCall)
   .then((response) => response.json())
   .then((data) => {
     const [{ description }] = data.weather;
@@ -63,11 +106,30 @@ fetch(API_CALL)
     // Temperature is in Kelvin
     //console.log(temp);
     //console.log(humidity);
-
-    //console.log(data);
+    const name = data.name;
+    //console.log(name);
+    console.log("Success:", data);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
   });
+  */
 
 /*
+app.post("/weather", (req, res) => {
+  const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
+  const zipCode = req.body.zip;
+  const APIString = `&appid=${OpenWeatherMapApiKey}`;
+  const API_CALL = `${baseURL}${zipCode},us${APIString}`;
+  fetch(API_CALL)
+    .then((response) => response.json())
+    .then((data) => {
+      const [{ description }] = data.weather;
+      const { temp, humidity } = data.main;
+      const name = data.name;
+      
+    });
+});
 // Initialize all route with a callback function
 app.get("/all", sendData);
 

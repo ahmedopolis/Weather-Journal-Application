@@ -29,7 +29,7 @@ To have access to the assets necessary for the project, you may download the 'zi
 
 ### Setup environment
 
-Once the assets are within a folder, the environment needs to be setup. To do-so, it would be worthwhile using Git commands. For more information on how to setup Git on PC, please use the following link: <https://www.computerhope.com/issues/ch001927.htm>. To use the herein project, it will be necessary to have both Node.js and npm. To download them, please use the following link: <https://www.npmjs.com/get-np>.
+Once the assets are within a folder, the environment needs to be setup. To do-so, it would be worthwhile using Git commands. It is pre-installed on Mac OS and Linux Distros, but not on Windows. For more information on how to setup Git on PC, please use the following link: <https://www.computerhope.com/issues/ch001927.htm>. To use the herein project, it will be necessary to have both Node.js and npm. To download them, please use the following link: <https://www.npmjs.com/get-np>.
 </br></br>
 To check if Node.js is installed, run the following command in the terminal:
 
