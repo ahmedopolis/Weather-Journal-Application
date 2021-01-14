@@ -18,5 +18,25 @@ function runAction(elem) {
 /* Function to GET Web API Data*/
 
 /* Function to POST data */
-
+const postData = async (url = "", data = {}) => {
+  const request = await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({
+        contentFeelings: data.contentFeelings,
+        description: data.description,
+        humidity: data.humidity,
+        name = data.name,
+        temp = data.temp
+    }),
+  })
+  return await response.json();
+};
 /* Function to GET Project Data */
