@@ -18,7 +18,7 @@ function runAction(elem) {
 /* Function to GET Web API Data*/
 
 /* Function to POST data */
-const postData = async (url = "", data = {}) => {
+const postData = async (url = "", data = { date, zipCode, content }) => {
   const request = await fetch(url, {
     method: "POST",
     mode: "cors",
@@ -30,13 +30,12 @@ const postData = async (url = "", data = {}) => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify({
-        contentFeelings: data.contentFeelings,
-        description: data.description,
-        humidity: data.humidity,
-        name = data.name,
-        temp = data.temp
+      date: data.date,
+      zipCode: data.zipCode,
+      content: data.content,
     }),
-  })
+  });
   return await response.json();
 };
+
 /* Function to GET Project Data */

@@ -57,8 +57,87 @@ function concatAPIString(zipCode) {
   return fullApiString;
 }
 
-function postWeatherData() {
-  const apiCall = concatAPIString(90044);
+// Initialize all route with a callback function
+app.get("/all", sendData);
+
+// Callback function to complete GET '/all'
+function sendData(req, res) {
+  res.send(projectData);
+}
+
+// Post Route
+async function fetchWeatherData(url = "", data = {}) {
+  const response = await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
+function postWeatherData(zipCode) {
+  const apiCall = concatAPIString(zipCode);
+  fetchWeatherData(apiCall, {})
+    .then((data) => {
+      console.log("Success:", data);
+      const [{ description }] = data.weather;
+      // console.log(description);
+      const { temp, humidity } = data.main;
+      //Temperature is in Kelvin
+      // console.log(temp);
+      //console.log(humidity);
+      const name = data.name;
+      //console.log(name);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+app.post("/weather", addWeatherData);
+
+function addWeatherData(req, res) {
+  //console.log(req.body);
+  const apiCall = concatAPIString(req.body.zipCode);
+  const combinedPostData = {};
+  fetchWeatherData(apiCall, {})
+    .then((data) => {
+      console.log("Success:", data);
+      const [{ description }] = data.weather;
+      // console.log(description);
+      const { temp, humidity } = data.main;
+      //Temperature is in Kelvin
+      // console.log(temp);
+      //console.log(humidity);
+      const name = data.name;
+      //console.log(name);
+      combinedPostData = {
+        date: req.body.date,
+        zipCode: data.zipCode,
+        content: data.content,
+        description: description,
+        temp: temp,
+        humidity: humidity,
+        name: name,
+      };
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+  projectData.push(combinedPostData);
+  res.send(combinedPostData);
+}
+
+/*
+function postWeatherData(zipCode) {
+  const apiCall = concatAPIString(zipCode);
   fetchWeatherData(apiCall, {})
     .then((data) => {
       console.log("Success:", data);
@@ -83,7 +162,7 @@ async function fetchWeatherData(url = "", data = {}) {
     cache: "no-cache",
     credentials: "same-origin",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -92,8 +171,8 @@ async function fetchWeatherData(url = "", data = {}) {
   return response.json();
 }
 
-postWeatherData();
-
+postWeatherData(90044);
+*/
 /*
 const apiCall = concatAPIString(90044);
 
