@@ -1,25 +1,25 @@
-/* Global Variables */
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = 1 + d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
-
-// Personal API Key for OpenWeatherMap API
-
 // Event listener to add function to existing HTML DOM element
 document.querySelector("#generate").addEventListener("click", runAction);
 
 /* Function called by event listener */
 function runAction(elem) {
   elem.preventDefault();
-  const newZIPCode = document.querySelector("#zip").value;
-  const contentFeelings = document.querySelector("#feelings").value;
+  let data = {};
+  let d = new Date();
+  let newDate = 1 + d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+  const newZipCode = document.querySelector("#zip").value;
+  const newContentFeelings = document.querySelector("#feelings").value;
+  data = {
+    date: newDate,
+    zipCode: newZipCode,
+    content: newContentFeelings,
+  };
+  postData("http://localhost:8000/weatherData", data);
 }
 
-/* Function to GET Web API Data*/
-
 /* Function to POST data */
-const postData = async (url = "", data = { date, zipCode, content }) => {
-  const request = await fetch(url, {
+const postData = async (url = "", data = {}) => {
+  const response = await fetch(url, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -39,3 +39,12 @@ const postData = async (url = "", data = { date, zipCode, content }) => {
 };
 
 /* Function to GET Project Data */
+const getData = async function (url = "") {
+  let res = await fetch(url);
+  try {
+    let weatherData = res.json();
+    return weatherData;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};

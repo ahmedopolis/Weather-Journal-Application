@@ -24,7 +24,6 @@ const fetch = require("node-fetch");
 /* Dependencies & Middleware */
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { response } = require("express");
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -58,7 +57,7 @@ function concatAPIString(zipCode) {
 }
 
 // Initialize all route with a callback function
-app.get("/all", sendData);
+app.get("/weatherData", sendData);
 
 // Callback function to complete GET '/all'
 function sendData(req, res) {
@@ -66,73 +65,50 @@ function sendData(req, res) {
 }
 
 // Post Route
-async function fetchWeatherData(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(data),
-  });
-  return response.json();
-}
-
-function postWeatherData(zipCode) {
-  const apiCall = concatAPIString(zipCode);
-  fetchWeatherData(apiCall, {})
-    .then((data) => {
-      console.log("Success:", data);
-      const [{ description }] = data.weather;
-      // console.log(description);
-      const { temp, humidity } = data.main;
-      //Temperature is in Kelvin
-      // console.log(temp);
-      //console.log(humidity);
-      const name = data.name;
-      //console.log(name);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
-app.post("/weather", addWeatherData);
+app.post("/weatherData", addWeatherData);
 
 function addWeatherData(req, res) {
-  //console.log(req.body);
+  console.log(req.body);
   const apiCall = concatAPIString(req.body.zipCode);
-  const combinedPostData = {};
-  fetchWeatherData(apiCall, {})
+  console.log(apiCall);
+  let combinedPostData = {};
+  fetchWeatherData(apiCall)
     .then((data) => {
       console.log("Success:", data);
       const [{ description }] = data.weather;
-      // console.log(description);
+      console.log(description);
       const { temp, humidity } = data.main;
       //Temperature is in Kelvin
-      // console.log(temp);
-      //console.log(humidity);
+      console.log(temp);
+      console.log(humidity);
       const name = data.name;
-      //console.log(name);
+      console.log(name);
       combinedPostData = {
         date: req.body.date,
-        zipCode: data.zipCode,
-        content: data.content,
+        zipCode: req.body.zipCode,
+        content: req.body.content,
         description: description,
         temp: temp,
         humidity: humidity,
         name: name,
       };
+      console.log(combinedPostData);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-  projectData.push(combinedPostData);
+  projectData = combinedPostData;
   res.send(combinedPostData);
+}
+
+async function fetchWeatherData(url) {
+  const response = await fetch(url);
+  try {
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 /*
