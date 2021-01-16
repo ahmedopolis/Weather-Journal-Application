@@ -67,7 +67,6 @@ app.post("/projectData", addWeatherData);
 
 // Combine data from user inputs and resulting api response
 function addWeatherData(req, res) {
-  console.log(req.body);
   const apiCall = concatAPIString(req.body.zipCode);
   console.log(apiCall);
   fetchWeatherData(apiCall)

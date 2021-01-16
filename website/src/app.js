@@ -15,10 +15,9 @@ function runAction(elem) {
     content: newContentFeelings,
   };
   let dataURL = "http://localhost:8000/projectData";
-  let getUserData = {};
   async function processUserData() {
-    const postUserData = await postData(dataURL, data).then(async () => {
-      const updateUIData = await updateUserInterface(dataURL);
+    await postData(dataURL, data).then(async () => {
+      await updateUserInterface(dataURL);
     });
   }
   processUserData();
