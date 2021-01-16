@@ -14,12 +14,19 @@ function runAction(elem) {
     zipCode: newZipCode,
     content: newContentFeelings,
   };
-  postData("http://localhost:8000/weatherData", data);
+  let dataURL = "http://localhost:8000/projectData";
+  let getUserData = {};
+  async function processUserData() {
+    const postUserData = await postData(dataURL, data).then(async () => {
+      const updateUIData = await updateUserInterface(dataURL);
+    });
+  }
+  processUserData();
 }
 
 /* Function to POST data */
-const postData = async (url = "", data = {}) => {
-  const response = await fetch(url, {
+async function postData(url = "", data = {}) {
+  const req = await fetch(url, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -35,16 +42,40 @@ const postData = async (url = "", data = {}) => {
       content: data.content,
     }),
   });
-  return await response.json();
-};
+  try {
+    const newRequest = req;
+    return newRequest;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 /* Function to GET Project Data */
-const getData = async function (url = "") {
-  let res = await fetch(url);
+async function getData(url = "") {
+  const res = await fetch(url);
   try {
-    let weatherData = res.json();
+    const weatherData = await res.json();
     return weatherData;
   } catch (error) {
     console.error("Error:", error);
   }
-};
+}
+
+/* Function fetch weather data and to update UI respectively */
+async function updateUserInterface(dataURL) {
+  const dataDiv = document.querySelector("#date");
+  const dataTemp = document.querySelector("#temp");
+  const dataHumidity = document.querySelector("#humidity");
+  const dataZipCode = document.querySelector("#zipCode");
+  const dataDescription = document.querySelector("#description");
+  const dataContent = document.querySelector("#content");
+  let getUserData = await getData(dataURL).then(async (data) => {
+    dataDiv.innerText = await data.date;
+    dataTemp.innerText = await data.temp;
+    dataHumidity.innerText = await data.humidity;
+    dataZipCode.innerText = await data.zipCode;
+    dataDescription.innerText = await data.description;
+    dataContent.innerText = await data.content;
+  });
+  return getUserData;
+}

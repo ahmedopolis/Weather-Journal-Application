@@ -15,6 +15,12 @@ let projectData = {};
 // Express to run server and routes
 const express = require("express");
 
+// Module to enable request via hyper text transfer protocol
+const http = require("http");
+
+// HTTP request logger middleware for node.js
+const morgan = require("morgan");
+
 // Start up an instance of app
 const app = express();
 
@@ -38,17 +44,17 @@ app.use(express.static("website"));
 // Setup server
 const port = 8000;
 const hostName = "localhost";
+const localServer = http.createServer(app);
 
 // Spin up the server
-const server = app.listen(port, listening);
+localServer.listen(port, listening);
 
 // Callback to debug
 function listening() {
-  //console.log(server);
   console.log(`Server is running on http://${hostName}: ${port}`);
 }
 
-//Example zipcode : 90044
+// Function to concatenate api call requirements for the api string
 function concatAPIString(zipCode) {
   const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
   const apiString = `&appid=${OpenWeatherMapApiKey}`;
@@ -56,34 +62,20 @@ function concatAPIString(zipCode) {
   return fullApiString;
 }
 
-// Initialize all route with a callback function
-app.get("/weatherData", sendData);
-
-// Callback function to complete GET '/all'
-function sendData(req, res) {
-  res.send(projectData);
-}
-
 // Post Route
-app.post("/weatherData", addWeatherData);
+app.post("/projectData", addWeatherData);
 
+// Combine data from user inputs and resulting api response
 function addWeatherData(req, res) {
   console.log(req.body);
   const apiCall = concatAPIString(req.body.zipCode);
   console.log(apiCall);
-  let combinedPostData = {};
   fetchWeatherData(apiCall)
     .then((data) => {
-      console.log("Success:", data);
       const [{ description }] = data.weather;
-      console.log(description);
       const { temp, humidity } = data.main;
-      //Temperature is in Kelvin
-      console.log(temp);
-      console.log(humidity);
       const name = data.name;
-      console.log(name);
-      combinedPostData = {
+      projectData = {
         date: req.body.date,
         zipCode: req.body.zipCode,
         content: req.body.content,
@@ -92,15 +84,13 @@ function addWeatherData(req, res) {
         humidity: humidity,
         name: name,
       };
-      console.log(combinedPostData);
     })
-    .catch((error) => {
-      console.error("Error:", error);
+    .then((newProjectData) => {
+      res.status(200).send(newProjectData);
     });
-  projectData = combinedPostData;
-  res.send(combinedPostData);
 }
 
+// Function to fetch api response
 async function fetchWeatherData(url) {
   const response = await fetch(url);
   try {
@@ -111,100 +101,10 @@ async function fetchWeatherData(url) {
   }
 }
 
-/*
-function postWeatherData(zipCode) {
-  const apiCall = concatAPIString(zipCode);
-  fetchWeatherData(apiCall, {})
-    .then((data) => {
-      console.log("Success:", data);
-      const [{ description }] = data.weather;
-      // console.log(description);
-      const { temp, humidity } = data.main;
-      //Temperature is in Kelvin
-      // console.log(temp);
-      //console.log(humidity);
-      const name = data.name;
-      //console.log(name);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
-async function fetchWeatherData(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(data),
-  });
-  return response.json();
-}
-
-postWeatherData(90044);
-*/
-/*
-const apiCall = concatAPIString(90044);
-
-fetch(apiCall)
-  .then((response) => response.json())
-  .then((data) => {
-    const [{ description }] = data.weather;
-    //console.log(description);
-    const { temp, humidity } = data.main;
-    // Temperature is in Kelvin
-    //console.log(temp);
-    //console.log(humidity);
-    const name = data.name;
-    //console.log(name);
-    console.log("Success:", data);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
-  */
-
-/*
-app.post("/weather", (req, res) => {
-  const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
-  const zipCode = req.body.zip;
-  const APIString = `&appid=${OpenWeatherMapApiKey}`;
-  const API_CALL = `${baseURL}${zipCode},us${APIString}`;
-  fetch(API_CALL)
-    .then((response) => response.json())
-    .then((data) => {
-      const [{ description }] = data.weather;
-      const { temp, humidity } = data.main;
-      const name = data.name;
-      
-    });
-});
 // Initialize all route with a callback function
-app.get("/all", sendData);
+app.get("/projectData", sendData);
 
 // Callback function to complete GET '/all'
 function sendData(req, res) {
-  res.send(projectData);
+  res.status(200).send(projectData);
 }
-
-// Post Route
-app.post("/weather", addWeatherData);
-
-function addWeatherData(req, res) {
-  console.log(req.body);
-  const data = [];
-  let newProjectDataEntry = {
-    date: req.body.date,
-    temperature: req.body.temp,
-    contentFeelings: req.body.content,
-  };
-  projectData = newProjectDataEntry;
-  data.push(projectData);
-}
-*/
