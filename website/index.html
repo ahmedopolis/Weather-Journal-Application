@@ -18,31 +18,39 @@
   </head>
   <body>
     <div id="app">
-      <div class="holder headline">Outdoor Journal</div>
-      <div class="holder zip">
-        <label for="zip">Please enter Zipcode below (United States Only)</label>
-        <input type="text" id="zip" placeholder="Enter zip code here" />
-      </div>
-      <div class="holder feel">
-        <label for="feelings">What are the vibes today?</label>
-        <textarea
-          class="myInput"
-          id="feelings"
-          placeholder="Enter your feelings here"
-          rows="9"
-          cols="50"
-        ></textarea>
-        <button id="generate" type="submit">Generate</button>
-      </div>
-      <div class="holder entry">
-        <div class="title">Latest Entry</div>
-        <div id="entryHolder">
-          <div id="date"></div>
-          <div id="temp"></div>
-          <div id="humidity"></div>
-          <div id="zipCode"></div>
-          <div id="description"></div>
-          <div id="content"></div>
+      <div id="app-container">
+        <div class="holder-headline">Outdoor Journal</div>
+        <div class="holder-zip">
+          <label for="zip">Please enter zip code below (US Only).</label>
+          <input
+            class="zip-text"
+            type="text"
+            id="zip"
+            placeholder="Enter zip code here"
+          />
+        </div>
+        <div class="holder-feel">
+          <label for="feelings">What are the vibes today?</label>
+          <textarea
+            class="myInput"
+            id="feelings"
+            placeholder="Enter your feelings here"
+            rows="9"
+            cols="52"
+          ></textarea>
+          <button id="generate" type="submit">Generate</button>
+        </div>
+        <div class="holder-entry">
+          <div class="title">Latest Weather Data Summary Below</div>
+          <p></p>
+          <div id="entryHolder">
+            <div id="date"></div>
+            <div id="temp"></div>
+            <div id="humidity"></div>
+            <div id="zipCode"></div>
+            <div id="description"></div>
+            <div id="content"></div>
+          </div>
         </div>
       </div>
     </div>

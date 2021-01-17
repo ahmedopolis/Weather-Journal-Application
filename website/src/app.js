@@ -16,11 +16,11 @@ function runAction(elem) {
   };
   let dataURL = "http://localhost:8000/projectData";
 
-  processUserData(dataURL);
+  processUserData(dataURL, data);
 }
 
 // Async function to post data and update UI using server-side processed data
-async function processUserData(dataURL) {
+async function processUserData(dataURL, data) {
   await postData(dataURL, data).then(async () => {
     await updateUserInterface(dataURL);
   });
