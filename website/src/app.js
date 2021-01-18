@@ -9,14 +9,21 @@ function runAction(elem) {
   let newDate = 1 + d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
   const newZipCode = document.querySelector("#zip").value;
   const newContentFeelings = document.querySelector("#feelings").value;
-  data = {
-    date: newDate,
-    zipCode: newZipCode,
-    content: newContentFeelings,
-  };
-  let dataURL = "http://localhost:8000/projectData";
-
-  processUserData(dataURL, data);
+  if (newZipCode.match("[a-zA-Z]+")) {
+    alert("Only integers are used zip codes. Ex:90001");
+  } else if (newZipCode.length !== 5) {
+    alert("The length of the zip code must be 5.");
+  } else if (newContentFeelings.length === "0") {
+    alert("Please enter an input in the 'textarea'.");
+  } else {
+    data = {
+      date: newDate,
+      zipCode: newZipCode,
+      content: newContentFeelings,
+    };
+    let dataURL = "http://localhost:8000/projectData";
+    processUserData(dataURL, data);
+  }
 }
 
 // Async function to post data and update UI using server-side processed data

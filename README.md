@@ -59,10 +59,10 @@ npm i node express
 
 ### Add cors middleware
 
-Use the following line, to add cors.
+Use the following line, to add cors and morgan.
 
 ```bash
-npm i cors
+npm i cors morgan
 ```
 
 ### Add module to use fetch API in Node
@@ -83,6 +83,14 @@ Use the following command to launch the project:
 
 ```bash
 npm run server.js
+```
+
+### Add NeDB module
+
+Use the following command to add the NeDB module:
+
+```bash
+npm i nedb
 ```
 
 ## Examples
