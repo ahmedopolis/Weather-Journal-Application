@@ -2,3 +2,5 @@
 {"STATUS":"Success","date":"1.17.2021","zipCode":"90001","content":"","description":"clear sky","temp":"65.50","humidity":36,"name":"Los Angeles","icon":"01n","_id":"Wh8TqgYTrpqrXhYJ"}
 {"STATUS":"Success","date":"1.17.2021","zipCode":"98102","content":"Could be better.","description":"broken clouds","temp":"45.09","humidity":93,"name":"Seattle","icon":"04n","_id":"n9OXLE9hmFWtReEj"}
 {"STATUS":"Success","date":"1.17.2021","zipCode":"10001","content":"Yeeeeeeeerrrrrrrrrrrrrrrrrrr","description":"overcast clouds","temp":"41.54","humidity":49,"name":"New York","icon":"04n","_id":"zEELMpdojhIhbrfF"}
+{"STATUS":"Success","date":"1.18.2021","zipCode":"90001","content":"I feel awesome.","description":"clear sky","temp":"60.71","humidity":32,"name":"Los Angeles","icon":"01n","_id":"hfSawIOh2MITgZuk"}
+{"STATUS":"Success","date":"1.18.2021","zipCode":"90001","content":"","description":"clear sky","temp":"60.71","humidity":32,"name":"Los Angeles","icon":"01n","_id":"u71CNkwff2LCX3ip"}
