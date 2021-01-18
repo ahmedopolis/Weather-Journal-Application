@@ -65,19 +65,19 @@ async function getData(url = "") {
 
 /* Function fetch weather data and to update UI respectively */
 async function updateUserInterface(dataURL) {
-  const dataDiv = document.querySelector("#date");
+  const dataDate = document.querySelector("#date");
   const dataTemp = document.querySelector("#temp");
   const dataHumidity = document.querySelector("#humidity");
   const dataZipCode = document.querySelector("#zipCode");
   const dataDescription = document.querySelector("#description");
   const dataContent = document.querySelector("#content");
   let getUserData = await getData(dataURL).then(async (data) => {
-    dataDiv.innerText = await data.date;
-    dataTemp.innerText = await data.temp;
-    dataHumidity.innerText = await data.humidity;
-    dataZipCode.innerText = await data.zipCode;
-    dataDescription.innerText = await data.description;
-    dataContent.innerText = await data.content;
+    dataDate.innerHTML = `Date: ${data.date}`;
+    dataTemp.innerHTML = `Temperature: ${data.temp} &#8457`;
+    dataHumidity.innerHTML = `Humidity: ${data.humidity} %`;
+    dataZipCode.innerHTML = `Zip: ${data.zipCode}`;
+    dataDescription.innerHTML = `Weather Description: "${data.description}"`;
+    dataContent.innerHTML = `Journal Input: ${data.content}`;
   });
   return getUserData;
 }

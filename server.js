@@ -68,18 +68,18 @@ app.post("/projectData", addWeatherData);
 // Combine data from user inputs and resulting api response
 function addWeatherData(req, res) {
   const apiCall = concatAPIString(req.body.zipCode);
-  console.log(apiCall);
   fetchWeatherData(apiCall)
     .then((data) => {
       const [{ description }] = data.weather;
       const { temp, humidity } = data.main;
       const name = data.name;
+      const tempFahrenheit = convertKelvintoFahrenheit(temp).toFixed(2);
       projectData = {
         date: req.body.date,
         zipCode: req.body.zipCode,
         content: req.body.content,
         description: description,
-        temp: temp,
+        temp: tempFahrenheit,
         humidity: humidity,
         name: name,
       };
@@ -87,6 +87,11 @@ function addWeatherData(req, res) {
     .then((newProjectData) => {
       res.status(200).send(newProjectData);
     });
+}
+
+// Convert temperature received in kelvin to Fahrenheit
+function convertKelvintoFahrenheit(temp) {
+  return (temp * 9) / 5 - 459.67;
 }
 
 // Function to fetch api response
