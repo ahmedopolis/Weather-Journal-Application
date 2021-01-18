@@ -19,6 +19,9 @@ The herein repository host the necessary assets for a Weather-Journal Applicatio
    9. [Add the OpenWeatherMap Api key](#Add-the-OpenWeatherMap-Api-key)
    10. [Run the server](#Run-the-server)
 3. [Examples](#Examples)
+   1. [Example of hovering page](Example-of-hovering-page)
+   2. [Example of input data and seeing UI update](Example-of-input-data-and-seeing-UI-update)
+   3. [Example of error-handling](Example-of-error-handling)
 4. [Tools](#Tools)
 5. [License](#License)
 
@@ -116,6 +119,18 @@ npm run devStart
 ```
 
 ## Examples
+
+### Example of hovering page
+
+![Hover Page](Hover-page.gif)
+
+### Example of input data and seeing UI update
+
+![Generate Data](Generate-Data.gif)
+
+### Example of error-handling
+
+![Error handling](Error-Handling.gif)
 
 ## Tools
 
