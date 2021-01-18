@@ -21,6 +21,9 @@ const http = require("http");
 // HTTP request logger middleware for node.js
 const morgan = require("morgan");
 
+// Type1: In-memory only datastore (no need to load the database)
+var dataStore = require("nedb");
+
 // Start up an instance of app
 const app = express();
 
@@ -40,6 +43,10 @@ app.use(cors());
 
 // Initialize the main project folder
 app.use(express.static("website"));
+
+// Create new database object
+const database = new dataStore("weatherdatabase.db");
+database.loadDatabase();
 
 // Setup server
 const port = 8000;
@@ -76,6 +83,7 @@ function addWeatherData(req, res) {
       const name = data.name;
       const tempFahrenheit = convertKelvintoFahrenheit(temp).toFixed(2);
       projectData = {
+        STATUS: "Success",
         date: req.body.date,
         zipCode: req.body.zipCode,
         content: req.body.content,
@@ -85,7 +93,7 @@ function addWeatherData(req, res) {
         name: name,
         icon: icon,
       };
-      console.log(projectData);
+      database.insert(projectData);
     })
     .then((newProjectData) => {
       res.status(200).send(newProjectData);
