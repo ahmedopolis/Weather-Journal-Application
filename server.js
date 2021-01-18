@@ -70,7 +70,8 @@ function addWeatherData(req, res) {
   const apiCall = concatAPIString(req.body.zipCode);
   fetchWeatherData(apiCall)
     .then((data) => {
-      const [{ description }] = data.weather;
+      console.log(data);
+      const [{ description, icon }] = data.weather;
       const { temp, humidity } = data.main;
       const name = data.name;
       const tempFahrenheit = convertKelvintoFahrenheit(temp).toFixed(2);
@@ -82,7 +83,9 @@ function addWeatherData(req, res) {
         temp: tempFahrenheit,
         humidity: humidity,
         name: name,
+        icon: icon,
       };
+      console.log(projectData);
     })
     .then((newProjectData) => {
       res.status(200).send(newProjectData);
