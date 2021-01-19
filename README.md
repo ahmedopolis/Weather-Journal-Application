@@ -1,7 +1,10 @@
 # Outdoor Journal ⛈️☀️🌬️
 
 ![Application Logo](weather-app-shieldslogo.svg)
-![Api Logo](OpenWeatherMap-Api-orange.svg)</br>
+![Api Logo](OpenWeatherMap-Api-orange.svg)
+![Dependencies up to date](dependencies-up-to-date-brightgreen.svg)
+![Requirements up to date](requirements-up-to-date-brightgreen.svg)
+</br>
 The herein repository host the necessary assets for a Weather-Journal Application called "Outdoor Journal." It consists of an asynchronous web application that uses Web API and user data to update its user-interface.
 
 ## Table of Content
