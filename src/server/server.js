@@ -45,7 +45,10 @@ app.use(cors());
 app.use(express.static("website"));
 
 // Create new database object and load database
-const database = new dataStore("weatherdatabase.db");
+const database = new dataStore({
+  filename: "src/server/weatherdatabase.db",
+  autoload: true,
+});
 database.loadDatabase();
 
 // Setup server

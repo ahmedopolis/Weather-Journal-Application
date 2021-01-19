@@ -4,7 +4,7 @@
   "description": "Weather Project",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon src/server/server.js"
   },
   "repository": {
     "type": "git",
