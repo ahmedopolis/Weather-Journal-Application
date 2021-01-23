@@ -137,7 +137,7 @@ npm run devStart
 
 ## Tools
 
-This webpage uses the following technologies for the front-end: HTML, CSS, and JavaScript (Vanilla). It also uses JavaScript on the server-side with Node.js and Express.js. The weater data is extracted via an api from <https://openweathermap.org/>.
+This webpage uses the following technologies for the front-end: HTML, CSS, and JavaScript (Vanilla). It also uses JavaScript on the server-side with Node.js and Express.js. The weather data is extracted via an api from <https://openweathermap.org/>.
 
 ## License
 
